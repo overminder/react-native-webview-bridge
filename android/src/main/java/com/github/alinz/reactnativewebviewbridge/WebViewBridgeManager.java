@@ -46,7 +46,7 @@ public class WebViewBridgeManager extends ReactWebViewManager {
   private void sendToBridge(WebView root, String message) {
     //root.loadUrl("javascript:(function() {\n" + script + ";\n})();");
     String script = "WebViewBridge.onMessage('" + message + "');";
-    root.evaluateJavascript(script, null);
+    WebViewBridgeManager.evaluateJavascript(root, script);
   }
 
 
@@ -64,17 +64,25 @@ public class WebViewBridgeManager extends ReactWebViewManager {
   }
   private void injectBridgeScript(WebView root) {
     //this code needs to be executed everytime a url changes.
-    root.evaluateJavascript(""
-    + "(function() {"
-        + "if (window.WebViewBridge) return;"
-        + "var customEvent = document.createEvent('Event');"
-        + "var WebViewBridge = {"
-            + "send: function(message) { WebViewBridgeAndroid.send(message); },"
-            + "onMessage: function() {}"
-        + "};"
-        + "window.WebViewBridge = WebViewBridge;"
-        + "customEvent.initEvent('WebViewBridge', true, true);"
-        + "document.dispatchEvent(customEvent);"
-    +"}());", null);
+    WebViewBridgeManager.evaluateJavascript(root, ""
+        + "(function() {"
+            + "if (window.WebViewBridge) return;"
+            + "var customEvent = document.createEvent('Event');"
+            + "var WebViewBridge = {"
+                + "send: function(message) { WebViewBridgeAndroid.send(message); },"
+                + "onMessage: function() {}"
+            + "};"
+            + "window.WebViewBridge = WebViewBridge;"
+            + "customEvent.initEvent('WebViewBridge', true, true);"
+            + "document.dispatchEvent(customEvent);"
+        +"}());");
+  }
+
+  static private void evaluateJavascript(WebView root, String javascript) {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+      root.evaluateJavascript(javascript, null);
+    } else {
+        root.loadUrl("javascript:" + javascript);
+    }
   }
 }
