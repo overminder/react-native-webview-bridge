@@ -1,2 +1,12 @@
 node_modules
+.*.swp
 .DS_Store
+
+**/android/gradle
+**/android/gradlew
+**/android/gradlew.bat
+**/android/.gradle
+**/android/local.properties
+**/android/build
+**/android/**/*.iml
+**/android/.idea

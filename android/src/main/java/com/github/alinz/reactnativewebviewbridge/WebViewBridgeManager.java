@@ -3,6 +3,7 @@ package com.github.alinz.reactnativewebviewbridge;
 import javax.annotation.Nullable;
 import java.util.Map;
 
+import android.os.Build;
 import android.webkit.WebView;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.views.webview.ReactWebViewManager;
@@ -43,10 +44,18 @@ public class WebViewBridgeManager extends ReactWebViewManager {
     }
   }
 
+  static void evaluateJavaScriptShimmed(WebView root, String jsExpr) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      root.evaluateJavascript(jsExpr, null);
+    } else {
+      root.loadUrl("javascript:" + jsExpr);
+    }
+  }
+
   private void sendToBridge(WebView root, String message) {
     //root.loadUrl("javascript:(function() {\n" + script + ";\n})();");
     String script = "WebViewBridge.onMessage('" + message + "');";
-    root.evaluateJavascript(script, null);
+    evaluateJavaScriptShimmed(root, script);
   }
 
 
@@ -62,9 +71,10 @@ public class WebViewBridgeManager extends ReactWebViewManager {
     root.removeJavascriptInterface("WebViewBridgeAndroid");
     super.onDropViewInstance(root);
   }
+
   private void injectBridgeScript(WebView root) {
     //this code needs to be executed everytime a url changes.
-    root.evaluateJavascript(""
+    evaluateJavaScriptShimmed(root, ""
     + "(function() {"
         + "if (window.WebViewBridge) return;"
         + "var customEvent = document.createEvent('Event');"
@@ -75,6 +85,6 @@ public class WebViewBridgeManager extends ReactWebViewManager {
         + "window.WebViewBridge = WebViewBridge;"
         + "customEvent.initEvent('WebViewBridge', true, true);"
         + "document.dispatchEvent(customEvent);"
-    +"}());", null);
+    + "}());");
   }
 }
