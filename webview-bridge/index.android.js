@@ -191,7 +191,7 @@ var WebViewBridge = React.createClass({
   },
 
   getWebViewBridgeHandle: function() {
-    return React.findNodeHandle(this.refs[RCT_WEBVIEWBRIDGE_REF]);
+    return ReactNative.findNodeHandle(this.refs[RCT_WEBVIEWBRIDGE_REF]);
   },
 
   onLoadingStart: function(event) {
