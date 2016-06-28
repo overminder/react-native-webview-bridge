@@ -1,0 +1,28 @@
+{
+  "name": "ReactNativeAdMob",
+  "version": "0.3.0",
+  "summary": "A react-native component for Google AdMob b...",
+  "description": "A react-native component for Google AdMob banners",
+  "homepage": "https://github.com/sbugert/react-native-admob",
+  "license": "BSD-2-Clause",
+  "authors": "sbugert",
+  "source": {
+    "git": "https://github.com/sbugert/react-native-admob",
+    "tag": "v0.3.0"
+  },
+  "requires_arc": true,
+  "platforms": {
+    "ios": "7.0"
+  },
+  "preserve_paths": [
+    "node_modules",
+    "package.json"
+  ],
+  "source_files": "ios/**/*.{c,h,m,S}",
+  "private_header_files": "ios/**/*.{h}",
+  "dependencies": {
+    "Google-Mobile-Ads-SDK": [
+      "~> 7.0"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+# use_frameworks!
+
+platform :ios, '8.0'
+
+project 'RNSomeLibExample.xcodeproj'
+
+abstract_target 'defaults' do
+  target 'RNSomeLibExample'
+
+  # This.
+  pod 'react-native-webview-bridge', :path => '../../ios'
+
+  # ReactNative dependencies. See
+  # https://facebook.github.io/react-native/docs/embedded-app-ios.html
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTText',
+    'RCTWebSocket',
+    'RCTLinkingIOS',
+  ]
+end

@@ -1,0 +1,2 @@
+include ':app', ':react-native-webview-bridge'
+project(':react-native-webview-bridge').projectDir = new File("$rootDir/../../android")
