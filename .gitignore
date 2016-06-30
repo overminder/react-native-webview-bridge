@@ -1,6 +1,7 @@
 node_modules
 .*.swp
 .DS_Store
+*.pid
 
 **/android/gradle
 **/android/gradlew
@@ -10,3 +11,4 @@ node_modules
 **/android/build
 **/android/**/*.iml
 **/android/.idea
+

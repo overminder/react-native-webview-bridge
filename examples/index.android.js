@@ -4,4 +4,5 @@
  */
 'use strict';
 
-import './app';
+// import './app';
+import './resize';

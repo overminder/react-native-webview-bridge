@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <!--
+    <script src='https://code.jquery.com/jquery-3.0.0.min.js'>
+    </script>
+     -->
+  </head>
+  <body>
+    <div id='x'>
+      XXX: no height yet
+    </div>
+
+    <script>
+      // Init.
+      var x = document.getElementById('x');
+      x.innerHTML = '';
+
+      function say(s) {
+        if (typeof s === 'object') {
+          s = JSON.stringify(s);
+        }
+        x.innerHTML += s;
+        x.innerHTML += '<br />';
+      }
+
+      function wSiz() {
+        return {
+          w: window.innerWidth,
+          h: window.innerHeight,
+        };
+      }
+
+      say({
+        event: 'init',
+        size: wSiz(),
+      });
+
+      window.addEventListener('resize', function() {
+        say({
+          event: 'resize',
+          size: wSiz(),
+        })
+      });
+    </script>
+  </body>
+</html>
+
