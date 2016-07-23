@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
 
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.views.webview.ReactWebViewManager;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReactContext;
@@ -90,5 +91,10 @@ public class WebViewBridgeManager extends ReactWebViewManager {
         + "customEvent.initEvent('WebViewBridge', true, true);"
         + "document.dispatchEvent(customEvent);"
     + "}());");
+  }
+
+  @ReactProp(name = "loadWithOverviewModeAndroid")
+  public void setLoadWithOverviewMode(WebView view, boolean enabled) {
+    view.getSettings().setLoadWithOverviewMode(enabled);
   }
 }

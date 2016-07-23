@@ -58,6 +58,11 @@ class Example extends React.Component {
           onBridgeMessage={this.onBridgeMessage}
           javaScriptEnabled={true}
           injectedJavaScript={injectScript}
+          // | NOTE: Some of the props lose their default values in
+          // RNWebViewBridge.
+          scalesPageToFit={true}
+          loadWithOverviewModeAndroid={true}
+          scrollEnabled={true}
           source={require('./body-height.html')} />
 
         <WebViewBridge
